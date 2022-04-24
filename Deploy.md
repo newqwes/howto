@@ -67,24 +67,32 @@ ufw allow https
 ```
 sudo apt install nginx # Отвечаем 'y'
 sudo systemctl stop nginx # Останавливаем nginx что бы продолжить изменение конфиг файла
-sudo nano /etc/nginx/sites-available/sites.conf # Создаем дополнительный конфигурационный файл для сайта
-sudo ln -s /etc/nginx/sites-available/sites.conf /etc/nginx/sites-enabled/sites.conf # После создания ОБЪЯЗАТЕЛЬНО нужно добавить ссылку это файла что nginx понимал что было добавленно
+sudo nano /etc/nginx/sites-available/NEW.conf # Создаем дополнительный конфигурационный файл для сайта
+sudo ln -s /etc/nginx/sites-available/NEW.conf /etc/nginx/sites-enabled/NEW.conf # После создания ОБЪЯЗАТЕЛЬНО нужно добавить ссылку это файла что nginx понимал что было добавленно
 sudo nginx -t # проверка синтаксиса
 sudo systemctl start nginx # запуск
 sudo systemctl status nginx # статус
 
 ```
-- Поля server_name и location / {} измените на:
+Пример конфига
 ```
-server_name your-domain.com www.your-domain.com;
+upstream backendCoin {
+  server 127.0.0.1:3015;
+  keepalive 64;
+}
 
-location / {
-    proxy_pass http://localhost:5000; # Порт на котором запускается node.js приложение
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_cache_bypass $http_upgrade;
+server {
+  server_name coinlitics.online;
+  index index.html;
+  root /home/deploy/CWA/front-end/build;
+
+  # Эта часть нужна для работы правельной react-router или вместо блока if добавить - try_files $uri /index.html;
+  location / {
+    if (!-e $request_filename){
+      rewrite ^(.*)$ /index.html break;
+    }
+  }
+
 }
 ```
 
