@@ -37,9 +37,20 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 > sudo apt-get install docker-ce docker-ce-cli containerd.io
 ``` 
 
-Эта команда для проверки докера
+Для того если мы не являемся root пользователем (WorkPC) и не вводить постоянно команды docker начиная с sudo нужно добавить нашего пользователя в группу пользователей докера (https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
 ```sh
-sudo docker run hello-world
+sudo groupadd docker
+``` 
+```sh
+sudo usermod -aG docker $USER
+``` 
+```sh
+newgrp docker
+``` 
+
+Всё, теперь можно проверить докер:
+```sh
+docker run hello-world
 ``` 
 ____________________
 ## Команды
