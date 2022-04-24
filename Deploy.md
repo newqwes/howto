@@ -5,6 +5,8 @@
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=3f339efc69de&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
 
+[Видео по установке](https://www.youtube.com/watch?v=Ke6prIovMSU).
+
 - На старнице Droplets, создайте новый Ubuntu сервер, и подключите ssh ключ.
 
  ## Установка необходимых библиотек
@@ -64,7 +66,13 @@ ufw allow https
 ## Установка Nginx
 ```
 sudo apt install nginx # Отвечаем 'y'
-sudo nano /etc/nginx/sites-available/default 
+sudo systemctl stop nginx # Останавливаем nginx что бы продолжить изменение конфиг файла
+sudo nano /etc/nginx/sites-available/sites.conf # Создаем дополнительный конфигурационный файл для сайта
+sudo ln -s /etc/nginx/sites-available/sites.conf /etc/nginx/sites-enabled/sites.conf # После создания ОБЪЯЗАТЕЛЬНО нужно добавить ссылку это файла что nginx понимал что было добавленно
+sudo nginx -t # проверка синтаксиса
+sudo systemctl start nginx # запуск
+sudo systemctl status nginx # статус
+
 ```
 - Поля server_name и location / {} измените на:
 ```
@@ -78,17 +86,6 @@ location / {
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
 }
-```
-- Ctrl + X чтобы выйти, 'y' чтобы сохранить
-- Если запущен Apache сервер, его необходимо остановить
-```
-service apache2 status
-sudo systemctl disable apache2 && sudo systemctl stop apache2
-```
-- Проверьте синтаксис Nginx и перезапустите сервер
-```
-sudo nginx -t
-sudo service nginx restart
 ```
 
 ## Привязка домена
