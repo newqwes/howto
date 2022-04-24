@@ -23,3 +23,10 @@ sudo service nginx restart
 ```sh
 service nginx status
 ```
+
+Создание собственного конфига:
+```sh
+cd /etc/nginx/sites-available
+nano название_вашего_конфига (например my_conf_for_site)
+sudo ln -s /etc/nginx/sites-available/название_вашего_конфига /etc/nginx/sites-enabled/
+```
