@@ -52,6 +52,11 @@ newgrp docker
 ```sh
 docker run hello-world
 ``` 
+
+Залогиниться в docker Hub
+```sh
+docker login
+``` 
 ____________________
 ## Команды
 
