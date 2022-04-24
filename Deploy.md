@@ -1,7 +1,7 @@
 # Деплой Node.js, с уcтановкой Nginx и SSL Let's Encrypt
 
 ## Установка сервера
-Сервер будет установлен на Digital Ocean. Получите 100$ при регистрации, перейдя по [этой реферальной ссылке](https://www.digitalocean.com/?refcode=96eb2d860a30&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
+Сервер будет установлен на Digital Ocean. Получите 100$ при регистрации, перейдя по [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=3f339efc69de&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
 
 - На старнице Droplets, создайте новый Ubuntu сервер, и подключите ssh ключ.
 
