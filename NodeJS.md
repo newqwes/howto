@@ -6,8 +6,13 @@ https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubunt
 
 На Linux всегда поисать команды с sudo
 
-Что бы обновить (изменить) версию node 
+Что бы обновить (изменить) версию node нужно установить новую и ПЕРЕКЛЮЧИТЬСЯ на нее
+Посмотреть какие версии уже есть на машине
+```
+nvm ls 
+```
 
+установить версию
 ```
 sudo apt update
 sudo apt install build-essential checkinstall libssl-dev
