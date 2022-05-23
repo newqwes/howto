@@ -88,12 +88,12 @@ AllowedIPs = 0.0.0.0/0, ::0/0
 ``` 
 Start VPN
 ```sh
-sudo wg-quick up wg0
+sudo wg-quick up [config-name]
 ``` 
 
 Stop VPN
 ```sh
-sudo wg-quick down wg0
+sudo wg-quick down [config-name]
 ``` 
 
 Check VPN
