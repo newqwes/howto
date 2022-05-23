@@ -45,7 +45,7 @@ For a PC, we also create a client, but we already copy the config file, you can 
 
 Example
 ```sh
-cd /home/qwes/configs/config
+cd /home/[user-name]/configs/config
 ls
 vi config.conf
 ``` 
@@ -70,9 +70,9 @@ copy the config extension .conf there
 you can first create an empty file with a command, then copy the contents that we took from the server there
 
 ```sh
-sudo nano /etc/wireguard/wg0.conf
+sudo nano /etc/wireguard/[config-name].conf
 ``` 
-An example of what is inside the conf file wg0.conf (the data has been changed so that you would not be tempted to check it)
+An example of what is inside the conf file [config-name].conf (the data has been changed so that you would not be tempted to check it)
 
 ```sh
 [Interface]
