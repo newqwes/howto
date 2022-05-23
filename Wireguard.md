@@ -2,77 +2,77 @@
 
 ## Server
 
-Устанавливаем все зависимости на сервер
+Install all dependencies on the server
 
-далее
+next
 ```sh
 curl -L https://install.pivpn.io | bash
 ```
 
 
-если curl не прошел устанавливаем его.
+if curl did not pass, install it.
 
-Это скрипт от pivpn.io там упращен вариант с установкой всего что необходимо для работы впн
+This is a script from pivpn.io, there is a simplified option with installing everything that is necessary for vpn to work
 
-Во время установки выбирать да и тд. ни чего особенного
+During installation, choose yes and so on. nothing special.
 
-ВАЖНО: Для каждого клиента(устройства) свой ЛИЧНЫЙ ключ создается один.
+IMPORTANT: One PRIVATE key is created for each client (device).
 
-Для телефонов(iOS and android) всё просто, на сервере создаешь клиента и посмотреть кьюаркод
+For phones (iOS and android) everything is simple, on the server you create a client and see the keycode
 
-### Команды
+### Commands
 
 https://www.joshualowcock.com/guide/pivpn/
 
-посмотреть все команды
+see all commands
 ```sh
 pivpn -command
 ``` 
 
 
-создать клиента
+create a client
 ```sh
 pivpn add
 ``` 
 
 
-посмотреть кьюаркод (для телефона)
+view QR-code (for phone)
 ```sh
 pivpn -qr
 ``` 
 
-Для ПК так же создаем клиента но уже копируем файла конфига, можно просто открыть его
+For a PC, we also create a client, but we already copy the config file, you can just open it
 
-Пример
+Example
 ```sh
 cd /home/qwes/configs/config
 ls
 vi config.conf
 ``` 
-и далее скопировать всё содиржимое себе на компьютер
+and then copy everything to your computer
 
 
 ## Client
 
-Для windows/macOS всё просто, устанавливаешь приложение подставляешь конфиг тот что сгенерировали выше в это приложение и всё работает
+For windows / macOS, everything is simple, install the application, substitute the config that was generated above into this application and everything works
 
-Для Linux по сложнее
+For Linux it's harder...
 
-Устанавливаем сначала пакет
+Install the package first
 ```sh
 sudo apt install wireguard
 ``` 
 
-Затем появяется папка в системе по пути /etc/wireguard
+Then a folder appears in the system along the path /etc/wireguard
 
-туда копируем конфиг расширение .conf
+copy the config extension .conf there
 
-можно командой сначала создать пустой файл потом туда скопировать содиржимое что мы взяли с сервера
+you can first create an empty file with a command, then copy the contents that we took from the server there
 
 ```sh
 sudo nano /etc/wireguard/wg0.conf
 ``` 
-Пример того что внутри конф файла wg0.conf (данные изменены что бы у вас не возникло искушения проверить их)
+An example of what is inside the conf file wg0.conf (the data has been changed so that you would not be tempted to check it)
 
 ```sh
 [Interface]
@@ -86,19 +86,19 @@ PresharedKey = 6+heOw3fnxB4UT6LwcoGQSrNJTU0JjhtUwizzXXxGAM=
 Endpoint = 146.110.224.71:51820
 AllowedIPs = 0.0.0.0/0, ::0/0
 ``` 
-Запуск VPN
+Start VPN
 ```sh
 sudo wg-quick up wg0
 ``` 
 
-Остановка VPN
+Stop VPN
 ```sh
 sudo wg-quick down wg0
 ``` 
 
-Проверка VPN
+Check VPN
 ```sh
 sudo wg show
 ``` 
 
-Проверяем радуемся.
+Check it out, enjoy.
