@@ -1,9 +1,7 @@
 # Деплой Node.js, с уcтановкой Nginx и SSL Let's Encrypt
 
 ## Установка сервера
-Сервер будет установлен на Digital Ocean. Получите 100$ при регистрации кликнув по картинке ниже
-
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=3f339efc69de&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge).
+Сервер будет установлен на Digital Ocean.
 
 [Видео по установке](https://www.youtube.com/watch?v=Ke6prIovMSU).
 
@@ -76,22 +74,45 @@ sudo systemctl status nginx # статус
 ```
 Пример конфига
 ```
-upstream backendCoin {
-  server 127.0.0.1:3015;
-  keepalive 64;
+server {
+  server_name coinlitics.space www.coinlitics.space;
+  index index.html;
+
+  location / {
+    root /home/repositories/CWA/front-end/build;
+    try_files $uri /index.html;
+  }
+
+  location /api/ {
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass   http://coinlitics.space:3015;
+        proxy_ssl_verify on;
+        proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt; # Ubuntu/Debian
+  }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/coinlitics.space-0001/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/coinlitics.space-0001/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
 }
 
 server {
-  server_name coinlitics.online;
-  index index.html;
-  root /home/deploy/CWA/front-end/build;
+    if ($host = coinlitics.space) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
 
-  # Эта часть нужна для работы правельной react-router или вместо блока if добавить - try_files $uri /index.html;
-  location / {
-    if (!-e $request_filename){
-      rewrite ^(.*)$ /index.html break;
-    }
-  }
+
+  server_name coinlitics.space www.coinlitics.space;
+    listen 80;
+    return 404; # managed by Certbot
+
 
 }
 ```
@@ -113,5 +134,3 @@ sudo apt install certbot python3-certbot-nginx # Отвечаем 'y'
 sudo certbot --nginx -d your-domain.com -d www.your-domain.com
 certbot renew --dry-run
 ```
-
-**Да будет свет**
