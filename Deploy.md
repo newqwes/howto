@@ -33,9 +33,23 @@ nvm use 14.17.3
 # Проверить активную версию 
 node -v
 ```
+- создай ssh ключ на дроплете и добавь паблик ключ на свой гитхаб:
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+cat ~/.ssh/id_rsa.pub
+nano ~/.ssh/config
+
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa
+  IdentitiesOnly yes
+
+ssh -T git@github.com // Если все настроено правильно, ты должен увидеть сообщение:
+```
 - Склонируйте Git репозиторий:
 ```
-git clone (https ссылка на репозиторий)
+git clone (https ссылка на репозиторий или ssh если добавил ключ с дроплета на свой github)
 ```
 - Зайдите в папку приложения и установите node_modules:
 ```
