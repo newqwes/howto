@@ -7,6 +7,14 @@
 sudo npm install pm2 -g
 ```
 
+
+если надо запускать команду yarn start 
+т/е через yarn то пропиши такую команду
+
+```sh
+pm2 start "yarn start" --name yourProjec 
+```
+
 конфиг pm2 по адресу home/ecosystem.config.js
 после изменения конфиг файла pm2 перезапустить pm2 необходимо! pm2 start в директории конфига это всё
 
